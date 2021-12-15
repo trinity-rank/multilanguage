@@ -1,10 +1,10 @@
 <?php
 
-namespace Trinityrank\Hreflang;
+namespace Trinityrank\Multilanguage;
 
 use Illuminate\Support\ServiceProvider;
 
-class HreflangServiceProvider extends ServiceProvider
+class MultilanguageServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
@@ -15,9 +15,9 @@ class HreflangServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ ."/database/migrations/2021_10_27_115398_add_hreflang_columns_to_tables.php" =>
-                'database/migrations/2021_10_27_115398_add_hreflang_columns_to_tables.php',
-            ], "hreflang-migration");
+                __DIR__ ."/database/migrations/2021_10_27_115398_add_multilang_columns_to_tables.php" =>
+                'database/migrations/2021_10_27_115398_add_multilang_columns_to_tables.php',
+            ], "multilanguage-migration");
         }
     }
 

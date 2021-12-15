@@ -1,14 +1,14 @@
 {
-    "name": "trinityrank/hreflang",
-    "description": "Add alternate hreflang tags for same pages but on other language",
+    "name": "trinityrank/multilanguage",
+    "description": "Add alternate multilanguage tags for same pages but on other language",
     "keywords": [
         "laravel",
         "nova",
         "trinityrank",
         "alternate",
-        "hreflang"
+        "multilanguage"
     ],
-    "homepage": "https://github.com/trinity-rank/hreflang",
+    "homepage": "https://github.com/trinity-rank/multilanguage",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -23,13 +23,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Trinityrank\\Hreflang\\": "src"
+            "Trinityrank\\Multilanguage\\": "src"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Trinityrank\\Hreflang\\HreflangServiceProvider"
+                "Trinityrank\\Multilanguage\\MultilanguageServiceProvider"
             ]
         }
     },

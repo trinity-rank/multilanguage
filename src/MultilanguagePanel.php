@@ -1,12 +1,13 @@
 <?php
 
-namespace Trinityrank\Hreflang;
+namespace Trinityrank\Multilanguage;
 
 use Laravel\Nova\Panel;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Spatie\Multitenancy\Models\Tenant;
 
-class HreflangPanel
+class MultilanguagePanel
 {
 
     public static function make($panelTitle = 'Language', $columnName = null, $targets = null, $options = null)
@@ -18,17 +19,12 @@ class HreflangPanel
         }
 
         return new Panel($panelTitle, [
-            Text::make('CONST'),
+            Text::make('CONST', 'multilang_const'),
+                // ->hideFromIndex(),
 
-            Select::make('Language')
-                ->options([
-                    "en-US" => "USA",
-                    "en-GB" => "Great Britain",
-                    "en-ca" => "Canada",
-                    "en-au" => "Australia",
-                    "de" => "German",
-                    "de-at" => "Austria",
-                ])
+            Select::make('Language', 'multilang_language')
+                ->options( config('app.locales') )
+                ->default( config('tenant-'. Tenant::current()->name .'.default-locale') ),
         ]);
     }
 

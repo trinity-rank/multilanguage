@@ -1,26 +1,28 @@
 # Very short description of the package
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/trinityrank/geo-location.svg?style=flat-square)](https://packagist.org/packages/trinityrank/hreflang)
-[![Total Downloads](https://img.shields.io/packagist/dt/trinityrank/geo-location.svg?style=flat-square)](https://packagist.org/packages/trinityrank/hreflang)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/trinityrank/multilanguage.svg?style=flat-square)](https://packagist.org/packages/trinityrank/multilanguage)
+[![Total Downloads](https://img.shields.io/packagist/dt/trinityrank/multilanguage.svg?style=flat-square)](https://packagist.org/packages/trinityrank/multilanguage)
 
-Add alternate hreflang tags for same pages but on other language.
+Add alternate multilanguage tags for same pages but on other language.
 
 ## Installation
 
 ### Step 1: Install package
 
-To get started with Laravel Geo Location, use Composer command to add the package to your composer.json project's dependencies:
+To get started with Laravel Multilanguage, use Composer command to add the package to your composer.json project's dependencies:
 
 ```shell
-    composer require trinityrank/hreflang
+    composer require trinityrank/multilanguage
 ```
 
-### Step 2: Migration
+## Laravel Nova admin - Backend part
+
+### Step 2: Database
 
 - You need to publish migration from package
 
 ```shell
-    php artisan vendor:publish --provider="Trinityrank\Hreflang\HreflangServiceProvider" --tag="hreflang-migration"
+    php artisan vendor:publish --provider="Trinityrank\Multilanguage\MultilanguageServiceProvider" --tag="multilanguage-migration"
 ```
 
 - And then you need to run migration for alltenant(s)
@@ -35,6 +37,15 @@ To get started with Laravel Geo Location, use Composer command to add the packag
     php artisan tenant:artisan "migrate" --tenant=[--TENANT-ID--]
 ```
 
+- Update database field "multilang_language" to default language for your website
+
+```shell
+    UPDATE `articles` SET `multilang_language`='us' WHERE 1;
+    UPDATE `pages` SET `multilang_language`='us' WHERE 1;
+    UPDATE `categories` SET `multilang_language`='us' WHERE 1;
+    UPDATE `static_pages` SET `multilang_language`='us' WHERE 1;
+```
+
 ### Step 3: Operaters Model database
 
 Add this fields to '$fillable' inside Operaters model
@@ -42,8 +53,8 @@ Add this fields to '$fillable' inside Operaters model
 ```shell
     public $fillable = [
         ...
-        'hreflang_const',
-        'hreflang_language',
+        'multilang_const',
+        'multilang_language',
     ];
 ```
 
@@ -52,16 +63,16 @@ Add this fields to '$fillable' inside Operaters model
 - Add field to your (Operater) resource into "fields" method
 
 ```shell
-    use Trinityrank\Hreflang\HreflangPanel;
+    use Trinityrank\Multilanguage\MultilanguagePanel;
     
     ...
     
-    HreflangPanel::make()
+    MultilanguagePanel::make()
 ```
 
 - Or if you use conditional fields than just add this into "fields" method
 ```shell
-    $this->getHreflangPanel('Hreflang Page Settings', 'hreflang')
+    $this->getMultilanguagePanel('Multilanguage', 'multilanguage')
 ```
 
 ### Step 5: If you are using conditional fields
@@ -73,7 +84,7 @@ Add this in tenant config
         ...
 
         'operater' => [
-            'hreflang' => [
+            'multilanguage' => [
                 'visible' => true
             ]
         ]
@@ -82,38 +93,49 @@ Add this in tenant config
     ]
 ```
 
-### Step 6: Frontend part
+### Step 6: Add languages
 
-- Without token
+In your "config\app.php" add multilanguage locales (use ISO language codes). For example:
 
 ```shell
-    use Trinityrank\Hreflang\HreflangOperater;
-
-    ...
-
-    $operaters = HreflangOperater::list($operaters_array);
+    'locales' => [
+        "us" => "USA",
+        "uk" => "Great Britain",
+        "ca" => "Canada",
+        "au" => "Australia",
+        "de" => "German",
+        "at" => "Austria",
+    ],
 ```
 
-- With token
+## Frontend part
 
-Add new variable in .ENV file
+### Step 7: Frontend part
+
+Add helper function to "composer.json" file
 
 ```shell
-    hreflang_API_TOKEN=[--Replace-this-with-website-token--]
+        "autoload": {
+            "files": [
+                "app/helpers/multilanguage-helper.php"
+            ],
+            ...
+        } 
 ```
 
-You can connect with 'config/main.php' file
+And then run:
 
 ```shell
-    'hreflang_api_token' => env('hreflang_API_TOKEN', null),
+    composer dump-autoload
 ```
 
-Then we can use our Geo Location
+And change default "route()" method to "multilang_route()"
+
+
+### Step 8: Add languages
+
+In your "config\app.php" add multilanguage locales (use ISO language codes). For example:
 
 ```shell
-    use Trinityrank\Hreflang\HreflangOperater;
-
-    ...
-
-    $operaters = HreflangOperater::list($operaters_array, $api_token = [optional]);
+    'locales' => ['us', 'uk', 'ca', 'au', 'de', 'at'],
 ```
