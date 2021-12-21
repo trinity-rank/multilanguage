@@ -37,6 +37,8 @@ To get started with Laravel Multilanguage, use Composer command to add the packa
     php artisan tenant:artisan "migrate" --tenant=[--TENANT-ID--]
 ```
 
+### Step 3: Update database with default language
+
 - Update database field "multilang_language" to default language for your website
 
 ```shell
@@ -46,17 +48,6 @@ To get started with Laravel Multilanguage, use Composer command to add the packa
     UPDATE `static_pages` SET `multilang_language`='us' WHERE 1;
 ```
 
-### Step 3: Operaters Model database
-
-Add this fields to '$fillable' inside Operaters model
-    
-```shell
-    public $fillable = [
-        ...
-        'multilang_const',
-        'multilang_language',
-    ];
-```
 
 ### Step 4: Add field
 
