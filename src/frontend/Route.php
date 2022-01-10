@@ -4,7 +4,6 @@ namespace Trinityrank\Multilanguage\Frontend;
 
 use Illuminate\Support\Facades\Route as LaravelRoute;
 use Trinityrank\Multilanguage\Frontend\LanguageController;
-use App\Articles\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 
