@@ -62,22 +62,55 @@ To get started with Laravel Multilanguage, use Composer command to add the packa
 ```
 
 - Or if you use conditional fields than just add this into "fields" method
+
 ```shell
+    // use "$this" or "self::", depends of resource structure
     $this->getMultilanguagePanel('Multilanguage', 'multilanguage')
+```
+
+- Fields where category depends on language select
+
+```shell
+    // use "$this" or "self::", depends of resource structure
+    // $this->getMultilanguageCategory("Language", [Resource::class, Model::class, ['rules']]),
+    // example:
+    $this->getMultilanguageCategory("Language", [ReviewPageCategory::class, TypesReviewPageCategory::class, ['required']]),
 ```
 
 ### Step 5: If you are using conditional fields
 
-Add this in tenant config
+Add this in tenant-default config
 
 ```shell
     'conditional_fields' => [
         ...
 
-        'operater' => [
-            'multilanguage' => [
+        '{{your_page_type_name}}' => [
+            'categories' => [
+                'visible' => true,
+                'rules' => ['required', 'min:1', 'max:1', ... ]
+            ],
+        ]
+
+        ...
+    ]
+```
+
+Add this in tenant-{{tenant name}} config
+
+```shell
+    'conditional_fields' => [
+        ...
+
+        '{{your_page_type_name}}' => [
+            'language' => [
                 'visible' => true
-            ]
+            ],
+            'categories' => [
+                'visible' => true,
+                'visibility' => ['onlyOnIndex'],
+                'rules' => ['required', 'min:1', 'max:1']
+            ],
         ]
 
         ...
