@@ -36,7 +36,7 @@ class MultilanguageCategory
         foreach($locales as $lang_code => $lang_name) {
             $fields[] =
                 NovaDependencyContainer::make([
-                    BelongsToManyField::make('Category - '. $lang_name, 'categories', $resource)
+                    BelongsToManyField::make('Category', 'categories', $resource)
                         ->options($model::where('multilang_language', $lang_code)->get())
                         ->optionsLabel('title')
                         ->rules($rules)
