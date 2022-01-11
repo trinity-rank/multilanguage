@@ -11,8 +11,16 @@ Add alternate multilanguage tags for same pages but on other language.
 
 To get started with Laravel Multilanguage, use Composer command to add the package to your composer.json project's dependencies:
 
+For Frontend and backend
 ```shell
     composer require trinityrank/multilanguage
+
+```
+
+Only for backend we need this package too
+```shell
+
+    composer require epartment/nova-dependency-container
 ```
 
 ## Laravel Nova admin - Backend part
