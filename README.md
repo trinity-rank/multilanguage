@@ -1,3 +1,23 @@
+- back
+jezici prebaciti u konfig tenanta
+CONDST da bude unique za taj jezik
+
+- front
+da se doda drop sa jecima na frontu
+da se vidi da se izmeni drop za money page-ve za UK
+
+- paket
+index da bude badge za jezike
+
+
+
+
+
+
+
+
+
+
 # Very short description of the package
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/trinityrank/multilanguage.svg?style=flat-square)](https://packagist.org/packages/trinityrank/multilanguage)
@@ -149,7 +169,7 @@ Add helper function to "composer.json" file
 ```shell
         "autoload": {
             "files": [
-                "app/helpers/multilanguage-helper.php"
+                "vendor/trinityrank/multilanguage/src/frontend/helpers.php"
             ],
             ...
         } 
