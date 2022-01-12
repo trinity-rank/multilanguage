@@ -4,6 +4,7 @@ namespace Trinityrank\Multilanguage\Filters;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Filters\Filter;
+use Spatie\Multitenancy\Models\Tenant;
 
 class FilterByLanguage extends Filter
 {
@@ -16,7 +17,7 @@ class FilterByLanguage extends Filter
 
     public function options(Request $request)
     {
-        $languages = config("app.locales") ?? [];
+        $languages = config('tenant-'. Tenant::current()->name .'.locales') ?? [];
         return array_merge(['All' => 'all'], array_flip($languages) );
     }
 }

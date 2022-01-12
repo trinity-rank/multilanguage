@@ -23,7 +23,7 @@ class MultilanguagePanel
                 // ->hideFromIndex(),
 
             Select::make('Language', 'multilang_language')
-                ->options( config('app.locales') )
+                ->options( config('tenant-'. Tenant::current()->name .'.locales') )
                 ->default( config('tenant-'. Tenant::current()->name .'.default-locale') ),
         ]);
     }

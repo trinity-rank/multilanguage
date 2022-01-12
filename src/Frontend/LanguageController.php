@@ -4,6 +4,7 @@ namespace Trinityrank\Multilanguage\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
+use Spatie\Multitenancy\Models\Tenant;
 
 class LanguageController extends Controller
 {
@@ -12,7 +13,7 @@ class LanguageController extends Controller
     {
         $current_language = Request::segment(1);
 
-        if( in_array($current_language, config('app.locales')) )
+        if( in_array($current_language, config('tenant-'. Tenant::current()->name .'.locales')) )
         {
             return $current_language;
         }

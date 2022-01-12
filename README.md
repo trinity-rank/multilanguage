@@ -149,7 +149,7 @@ Add helper function to "composer.json" file
 ```shell
         "autoload": {
             "files": [
-                "vendor/trinityrank/multilanguage/src/frontend/helpers.php"
+                "vendor/trinityrank/multilanguage/src/Frontend/helpers.php"
             ],
             ...
         } 
