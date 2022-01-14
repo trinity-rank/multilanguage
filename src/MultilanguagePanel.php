@@ -2,10 +2,12 @@
 
 namespace Trinityrank\Multilanguage;
 
+use Laravel\Nova\Fields\Badge;
 use Laravel\Nova\Panel;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Spatie\Multitenancy\Models\Tenant;
+use Trinityrank\Multilanguage\Traits\LanguageCode;
 
 class MultilanguagePanel
 {
@@ -19,12 +21,16 @@ class MultilanguagePanel
         }
 
         return new Panel($panelTitle, [
-            Text::make('CONST', 'multilang_const'),
-                // ->hideFromIndex(),
+            Text::make('CONST', 'multilang_const')
+                ->hideFromIndex(),
+
+            Badge::make('Language', 'multilang_language')
+                ->map(LanguageCode::$badge_language_codes),
 
             Select::make('Language', 'multilang_language')
                 ->options( config('tenant-'. Tenant::current()->name .'.locales') )
-                ->default( config('tenant-'. Tenant::current()->name .'.default-locale') ),
+                ->default( config('tenant-'. Tenant::current()->name .'.default-locale') )
+                ->onlyOnForms(),
         ]);
     }
 
