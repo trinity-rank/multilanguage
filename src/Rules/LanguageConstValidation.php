@@ -30,6 +30,10 @@ class LanguageConstValidation implements Rule
      */
     public function passes($attribute, $value)
     {
+        if( empty($value) ) {
+            return true;
+        }
+
         $item = $this->model::where('multilang_const', $value)->where('multilang_language', $this->language_code);
 
         if( $item->first() == null ) {
