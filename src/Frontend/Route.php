@@ -20,7 +20,8 @@ class Route extends LaravelRoute
 
             // If current url have default lang, than redirect to default url without lang code
             if( $language == config('app.locale') ) {
-                $redirect_path = str_replace($language."/", "", Request::path());
+                $redirect_path = str_replace($language, "", Request::path());
+                $redirect_path = trim($redirect_path, "/");
                 return Redirect::to($redirect_path, 301);
             }
 

@@ -14,22 +14,22 @@ class AddMultilangColumnsToTables extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->string('multilang_const', )->nullable()->after("decorators");
+            $table->string('multilang_const')->nullable()->after("decorators");
             $table->string('multilang_language')->nullable()->after("decorators");
         });
         
         Schema::table('categories', function (Blueprint $table) {
-            $table->string('multilang_const', )->nullable()->after("decorators");
+            $table->string('multilang_const')->nullable()->after("decorators");
             $table->string('multilang_language')->nullable()->after("decorators");
         });
         
         Schema::table('pages', function (Blueprint $table) {
-            $table->string('multilang_const', )->nullable()->after("decorators");
+            $table->string('multilang_const')->nullable()->after("decorators");
             $table->string('multilang_language')->nullable()->after("decorators");
         });
 
         Schema::table('static_pages', function (Blueprint $table) {
-            $table->string('multilang_const', )->nullable()->after("attributes");
+            $table->string('multilang_const')->nullable()->after("attributes");
             $table->string('multilang_language')->nullable()->after("attributes");
         });
     }

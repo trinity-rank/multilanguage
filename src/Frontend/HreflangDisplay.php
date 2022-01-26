@@ -1,6 +1,7 @@
 <?php
 
 namespace Trinityrank\Multilanguage\Frontend;
+
 use Trinityrank\Multilanguage\Traits\LanguageCode;
 
 class HreflangDisplay
@@ -19,11 +20,19 @@ class HreflangDisplay
 
     public static function meta_tags($post, $default_locale)
     {
-        if( !$post) {
+
+        // dd( $post );
+        // dd( $post->type );
+
+
+        if( !$post && !isset($post->type) ) {
             return;
         }
 
         $html = "";
+
+        // dd( $post->type );
+
         $items = $post->type::where('multilang_const', $post->multilang_const)->get();
 
         if($items)
