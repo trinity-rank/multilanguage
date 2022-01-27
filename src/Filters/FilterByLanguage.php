@@ -17,7 +17,7 @@ class FilterByLanguage extends Filter
 
     public function options(Request $request)
     {
-        $languages = config('tenant-'. Tenant::current()->name .'.locales') ?? [];
+        $languages = config('tenants.'. Tenant::current()->name .'.locales') ?? [];
         return array_merge(['All' => 'all'], array_flip($languages) );
     }
 }

@@ -23,7 +23,7 @@ class MultilanguageCategory
             return [];
         }
 
-        $locales = config('tenant-'. Tenant::current()->name .'.locales');
+        $locales = config('tenants.'. Tenant::current()->name .'.locales');
         $fields = [];
         $resource_category = $settings[0];
         $model_category = $settings[1];
@@ -42,7 +42,7 @@ class MultilanguageCategory
 
         $fields[] = Select::make('Language', 'multilang_language')
                 ->options($locales)
-                ->default( config('tenant-'. Tenant::current()->name .'.default-locale') )
+                ->default( config('tenants.'. Tenant::current()->name .'.default-locale') )
                 ->onlyOnForms();
 
         foreach($locales as $lang_code => $lang_name) {

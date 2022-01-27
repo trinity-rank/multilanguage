@@ -28,8 +28,8 @@ class MultilanguagePanel
                 ->map(LanguageCode::$badge_language_codes),
 
             Select::make('Language', 'multilang_language')
-                ->options( config('tenant-'. Tenant::current()->name .'.locales') )
-                ->default( config('tenant-'. Tenant::current()->name .'.default-locale') )
+                ->options( config('tenants.'. Tenant::current()->name .'.locales') )
+                ->default( config('tenants.'. Tenant::current()->name .'.default-locale') )
                 ->onlyOnForms(),
         ]);
     }
