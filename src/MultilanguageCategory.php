@@ -23,7 +23,8 @@ class MultilanguageCategory
             return [];
         }
 
-        $locales = config('tenants.'. Tenant::current()->name .'.locales');
+        $locales_array = config('tenants.'. Tenant::current()->name .'.locales');
+        $locales = [];
         $fields = [];
         $resource_category = $settings[0];
         $model_category = $settings[1];
@@ -32,6 +33,10 @@ class MultilanguageCategory
         $request = $settings[4];
         $self = $settings[5];
 
+        // Prepare array with language code and country name for Select field
+        foreach($locales_array as $lang) {
+            $locales [$lang] = self::$language_names[$lang];
+        }
 
         $fields[] = Text::make('CONST', 'multilang_const')
                 ->rules(new LanguageConstValidation($request, $self, $model))
