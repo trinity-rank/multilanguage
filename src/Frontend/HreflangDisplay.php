@@ -20,26 +20,18 @@ class HreflangDisplay
 
     public static function meta_tags($item)
     {
-        // dd( $item );
 
-        if( ! $item ) {
-            return;
-        }
-        
-        if( $item->multilang_const == null ) {
-            return;
-        }
-        // dd( Route::currentRouteName() );
-        // dd( Route::current()->uri );
-        // dd( class_exists($item->type) );
-        
         if( !$item && !isset($item->type) ) {
+            return;
+        }
+
+        // Here we can display some default tags if there is no CONST relations between pages
+        if( $item->multilang_const == null ) {
             return;
         }
         
         $html = "";
         $default_locale = config("app.locale") ?? "";
-        // $route_name = Route::currentRouteName();
 
         if( class_exists($item->type) ) {
             $items = $item->type::where('multilang_const', $item->multilang_const)->get();
@@ -47,8 +39,6 @@ class HreflangDisplay
         else {
             $items = null;
         }
-
-        // dd( $items );
 
         if($items)
         {
