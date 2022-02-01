@@ -12,12 +12,21 @@ use Trinityrank\Multilanguage\Traits\LanguageCode;
 class MultilanguagePanel
 {
 
+    use LanguageCode;
+
     public static function make($panelTitle = 'Language', $columnName = null, $targets = null, $options = null)
     {
         // Because we have conditional fields
         if( isset($options['visibility']) && $options['visibility'] == false )
         {
             return new Panel($panelTitle, []);
+        }
+
+        $locales_array = config('tenants.'. Tenant::current()->name .'.locales');
+        $locales = [];
+        // Prepare array with language code and country name for Select field
+        foreach($locales_array as $lang) {
+            $locales [$lang] = self::$language_names[$lang];
         }
 
         return new Panel($panelTitle, [
@@ -28,8 +37,9 @@ class MultilanguagePanel
                 ->map(LanguageCode::$badge_language_codes),
 
             Select::make('Language', 'multilang_language')
-                ->options( config('tenants.'. Tenant::current()->name .'.locales') )
-                ->default( config('tenants.'. Tenant::current()->name .'.default-locale') )
+                ->options( $locales )
+                ->rules("required")
+                ->default( config('tenants.'. Tenant::current()->name .'.locale') )
                 ->onlyOnForms(),
         ]);
     }

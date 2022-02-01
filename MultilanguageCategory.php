@@ -47,7 +47,6 @@ class MultilanguageCategory
 
         $fields[] = Select::make('Language', 'multilang_language')
                 ->options($locales)
-                ->rules("required")
                 ->default( config('tenants.'. Tenant::current()->name .'.locale') )
                 ->onlyOnForms();
 
