@@ -72,11 +72,11 @@ class HreflangDisplay
                 // dd($href);
 
                 if( $item->multilang_language == $default_locale) {
-                    $html .= "<link rel=\"alternate\" multilanguage=\"x-default\" href=\"". url($href) ."\" />\n";
-                    $html .= "<link rel=\"alternate\" multilanguage=\"". self::iso_language_codes($item->multilang_language) ."\" href=\"". url($href) ."\" />\n";
+                    $html .= "<link rel=\"alternate\" hreflang=\"x-default\" href=\"". url($href) ."\" />\n";
+                    $html .= "<link rel=\"alternate\" hreflang=\"". self::iso_language_codes($item->multilang_language) ."\" href=\"". url($href) ."\" />\n";
                 }
                 else {
-                    $html .= "<link rel=\"alternate\" multilanguage=\"". self::iso_language_codes($item->multilang_language) ."\" href=\"". url($href) ."\" />\n";
+                    $html .= "<link rel=\"alternate\" hreflang=\"". self::iso_language_codes($item->multilang_language) ."\" href=\"". url($href) ."\" />\n";
                 }
             }
         }
