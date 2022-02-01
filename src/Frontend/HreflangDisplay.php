@@ -20,7 +20,6 @@ class HreflangDisplay
 
     public static function meta_tags($item)
     {
-
         if( !$item && !isset($item->type) ) {
             return;
         }
@@ -75,25 +74,3 @@ class HreflangDisplay
     }
 
 }
-
-
-
-/*
-    "id" => 393
-    "user_id" => 1
-    "editor_id" => null
-    "type" => "App\Articles\Types\Blog"
-    "title" => "Post US 1"
-    "slug" => "post-us-1"
-    "excerpt" => null
-    "show_toc" => 0
-    "show_author" => 1
-    "show_comments" => 1
-    "decorators" => "[]"
-    "multilang_language" => "en-us"
-    "multilang_const" => "post-1-CONST"
-    "status" => 1
-    "created_at" => "2021-10-28 09:02:24"
-    "updated_at" => "2021-10-28 09:09:05"
-    "publish_at" => "2021-10-28 09:02:24"
-*/
