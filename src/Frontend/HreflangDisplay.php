@@ -24,7 +24,7 @@ class HreflangDisplay
         if( !$item ) {
             return;
         }        
-        if( $item::class !== null ) {
+        if( $item::class == null ) {
             return;
         }
 
