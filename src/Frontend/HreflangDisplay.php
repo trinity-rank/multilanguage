@@ -21,7 +21,10 @@ class HreflangDisplay
 
     public static function meta_tags($item)
     {
-        if( !$item && $item::class !== null ) {
+        if( !$item ) {
+            return;
+        }        
+        if( $item::class !== null ) {
             return;
         }
 
@@ -34,7 +37,7 @@ class HreflangDisplay
         $default_locale = config("app.locale") ?? "";
 
         if( class_exists($item::class) ) {
-            $items = $item::class::where('multilang_const', $item->multilang_const)->get();
+            $items = ($item::class)::where('multilang_const', $item->multilang_const)->get();
         }
         else {
             $items = null;
@@ -60,8 +63,13 @@ class HreflangDisplay
                 }
                 // Templated routes
                 if($item->type == "route") {
-                    $href .= preg_replace('(.*?\/)', '', Request::path());
+                    if( Request::route()->getName() != "home" ) {
+                        $href .= preg_replace('(.*?\/)', '', Request::path());
+                    }
                 }
+
+                // dump($href);
+
                 //Slug
                 $href .= ($item->slug) ? $item->slug."/" : "/";
 
