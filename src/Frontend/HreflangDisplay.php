@@ -3,6 +3,7 @@
 namespace Trinityrank\Multilanguage\Frontend;
 
 use Trinityrank\Multilanguage\Traits\LanguageCode;
+use Illuminate\Support\Facades\Request;
 
 class HreflangDisplay
 {
@@ -20,7 +21,7 @@ class HreflangDisplay
 
     public static function meta_tags($item)
     {
-        if( !$item && !isset($item->type) ) {
+        if( !$item && $item::class !== null ) {
             return;
         }
 
@@ -32,12 +33,14 @@ class HreflangDisplay
         $html = "";
         $default_locale = config("app.locale") ?? "";
 
-        if( class_exists($item->type) ) {
-            $items = $item->type::where('multilang_const', $item->multilang_const)->get();
+        if( class_exists($item::class) ) {
+            $items = $item::class::where('multilang_const', $item->multilang_const)->get();
         }
         else {
             $items = null;
         }
+
+        // dd( $items );
 
         if($items)
         {
@@ -46,19 +49,21 @@ class HreflangDisplay
                 $href = ($item->multilang_language == $default_locale) ? '' : $item->multilang_language .'/';
                 
                 //Fix part
-                if( config('app.services.'.substr(strrchr($item->type,'\\'),1).'.slug') ) {
-                    $href .= config('app.services.'.substr(strrchr($item->type,'\\'),1).'.slug')."/";
+                if( config('app.services.'.substr(strrchr($item::class,'\\'),1).'.slug') ) {
+                    $href .= config('app.services.'.substr(strrchr($item::class,'\\'),1).'.slug')."/";
                 }
                 //Category part
-                if( config('app.services.'.substr(strrchr($item->type,'\\'),1).'.include_category_in_url') ) {
+                if( config('app.services.'.substr(strrchr($item::class,'\\'),1).'.include_category_in_url') ) {
                     if( isset($item->categories->first()->slug) ) {
                         $href .= $item->categories->first()->slug ."/";
                     }
                 }
+                // Templated routes
+                if($item->type == "route") {
+                    $href .= preg_replace('(.*?\/)', '', Request::path());
+                }
                 //Slug
                 $href .= ($item->slug) ? $item->slug."/" : "/";
-
-                // dd($href);
 
                 if( $item->multilang_language == $default_locale) {
                     $html .= "<link rel=\"alternate\" hreflang=\"x-default\" href=\"". url($href) ."\" />\n";
