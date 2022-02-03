@@ -51,15 +51,17 @@ class MultilanguageCategory
                 ->default( config('tenants.'. Tenant::current()->name .'.locale') )
                 ->onlyOnForms();
 
-        foreach($locales as $lang_code => $lang_name) {
-            $fields[] =
-                NovaDependencyContainer::make([
-                    BelongsToManyField::make('Category', 'categories', $resource_category)
-                        ->options($model_category::where('multilang_language', $lang_code)->get())
-                        ->optionsLabel('title')
-                        ->rules($rules)
-                ])
-                ->dependsOn('multilang_language', $lang_code);
+        if(!$request->isResourceIndexRequest()) {
+            foreach($locales as $lang_code => $lang_name) {
+                $fields[] =
+                    NovaDependencyContainer::make([
+                        BelongsToManyField::make('Category', 'categories', $resource_category)
+                            ->options($model_category::where('multilang_language', $lang_code)->get())
+                            ->optionsLabel('title')
+                            ->rules($rules)
+                    ])
+                    ->dependsOn('multilang_language', $lang_code);
+            }
         }
 
         return $fields;
