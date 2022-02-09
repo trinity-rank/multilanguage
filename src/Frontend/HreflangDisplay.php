@@ -39,7 +39,6 @@ class HreflangDisplay
 
             foreach($locales as $locale) {
                 User::hasPosts($locale, function($user) use (&$author){
-                    dump("aa");
                     $author++;
                 }, $item->id);
             }
