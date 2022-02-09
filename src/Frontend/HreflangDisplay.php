@@ -43,9 +43,14 @@ class HreflangDisplay
                 }, $item->id);
             }
             if( $author >=2 ) {
-                $html .= "<link rel=\"alternate\" hreflang=\"x-default\" href=\"". url($default_locale ."/author/". $item->slug ) ."\" />\n";
+                $html .= "<link rel=\"alternate\" hreflang=\"x-default\" href=\"". url("/author/". $item->slug ) ."\" />\n";
                 foreach($locales as $locale) {
-                    $html .= "<link rel=\"alternate\" hreflang=\"". self::iso_language_codes($locale) ."\" href=\"". url($locale ."/author/". $item->slug ) ."\" />\n";
+                    if( $locale == $default_locale) {
+                        $html .= "<link rel=\"alternate\" hreflang=\"". self::iso_language_codes($locale) ."\" href=\"". url("/author/". $item->slug ) ."\" />\n";
+                    }
+                    else {
+                        $html .= "<link rel=\"alternate\" hreflang=\"". self::iso_language_codes($locale) ."\" href=\"". url($locale ."/author/". $item->slug ) ."\" />\n";
+                    }
                 }
             }
 
