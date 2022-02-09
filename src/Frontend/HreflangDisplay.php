@@ -4,6 +4,7 @@ namespace Trinityrank\Multilanguage\Frontend;
 
 use Trinityrank\Multilanguage\Traits\LanguageCode;
 use Illuminate\Support\Facades\Request;
+use App\Models\User;
 
 class HreflangDisplay
 {
@@ -28,14 +29,35 @@ class HreflangDisplay
             return;
         }
 
+        $html = "";
+        $default_locale = config("app.locale") ?? "";
+
+        // Author page
+        if( $item::class == "App\Models\User" ) {
+            $locales = config("app.locales") ?? [];
+            $author = 0;
+
+            foreach($locales as $locale) {
+                User::hasPosts($locale, function($user) use (&$author){
+                    dump("aa");
+                    $author++;
+                }, $item->id);
+            }
+            if( $author >=2 ) {
+                $html .= "<link rel=\"alternate\" hreflang=\"x-default\" href=\"". url($default_locale ."/author/". $item->slug ) ."\" />\n";
+                foreach($locales as $locale) {
+                    $html .= "<link rel=\"alternate\" hreflang=\"". self::iso_language_codes($locale) ."\" href=\"". url($locale ."/author/". $item->slug ) ."\" />\n";
+                }
+            }
+
+            return $html;
+        }
+
         // Here we can display some default tags if there is no CONST relations between pages
         if( $item->multilang_const == null ) {
             return;
         }
         
-        $html = "";
-        $default_locale = config("app.locale") ?? "";
-
         if( class_exists($item::class) ) {
             $items = ($item::class)::where('multilang_const', $item->multilang_const)->get();
         }
