@@ -33,29 +33,29 @@ class HreflangDisplay
         $default_locale = config("app.locale") ?? "";
 
         // Author page
-        if( $item::class == "App\Models\User" ) {
-            $locales = config("app.locales") ?? [];
-            $author = 0;
+        // if( $item::class == "App\Models\User" ) {
+        //     $locales = config("app.locales") ?? [];
+        //     $author = 0;
 
-            foreach($locales as $locale) {
-                User::hasPosts($locale, function($user) use (&$author){
-                    $author++;
-                }, $item->id);
-            }
-            if( $author >=2 ) {
-                $html .= "<link rel=\"alternate\" hreflang=\"x-default\" href=\"". url("/author/". $item->slug ) ."\" />\n";
-                foreach($locales as $locale) {
-                    if( $locale == $default_locale) {
-                        $html .= "<link rel=\"alternate\" hreflang=\"". self::iso_language_codes($locale) ."\" href=\"". url("/author/". $item->slug ) ."\" />\n";
-                    }
-                    else {
-                        $html .= "<link rel=\"alternate\" hreflang=\"". self::iso_language_codes($locale) ."\" href=\"". url($locale ."/author/". $item->slug ) ."\" />\n";
-                    }
-                }
-            }
+        //     foreach($locales as $locale) {
+        //         User::hasPosts($locale, function($user) use (&$author){
+        //             $author++;
+        //         }, $item->id);
+        //     }
+        //     if( $author >=2 ) {
+        //         $html .= "<link rel=\"alternate\" hreflang=\"x-default\" href=\"". url("/author/". $item->slug ) ."\" />\n";
+        //         foreach($locales as $locale) {
+        //             if( $locale == $default_locale) {
+        //                 $html .= "<link rel=\"alternate\" hreflang=\"". self::iso_language_codes($locale) ."\" href=\"". url("/author/". $item->slug ) ."\" />\n";
+        //             }
+        //             else {
+        //                 $html .= "<link rel=\"alternate\" hreflang=\"". self::iso_language_codes($locale) ."\" href=\"". url($locale ."/author/". $item->slug ) ."\" />\n";
+        //             }
+        //         }
+        //     }
 
-            return $html;
-        }
+        //     return $html;
+        // }
 
         // Here we can display some default tags if there is no CONST relations between pages
         if( $item->multilang_const == null ) {
