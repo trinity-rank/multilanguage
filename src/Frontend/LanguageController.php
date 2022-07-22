@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Request;
 
 class LanguageController extends Controller
 {
-
     public static function get_language()
     {
         $current_language = Request::segment(1);
 
-        if( in_array($current_language, config('app.locales')) )
-        {
-            return $current_language;
+        if (config('app.locales') != null) {
+            if (in_array($current_language, config('app.locales'))) {
+                return $current_language;
+            }
         }
 
         return null;
@@ -33,5 +33,4 @@ class LanguageController extends Controller
 
     //     return null;
     // }
-
 }

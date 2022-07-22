@@ -171,3 +171,13 @@ In your "config\app.php" add multilanguage locales (use ISO language codes). For
 ```shell
     'locales' => ['us', 'uk', 'ca', 'au', 'de', 'at'],
 ```
+
+
+### Step 9: Add languages
+
+For hreflang metatags add this to yout master.blade file in head tag
+
+```shell
+    <!-- Multilanguage alternate link tags -->
+    {!! Trinityrank\Multilanguage\Frontend\HreflangDisplay::meta_tags($item) !!}
+```
