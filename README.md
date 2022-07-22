@@ -175,9 +175,34 @@ In your "config\app.php" add multilanguage locales (use ISO language codes). For
 
 ### Step 9: Add hreflang metatags
 
-For hreflang metatags add this to yout master.blade file in head tag
+- For hreflang metatags add this to yout `master.blade` file in head tag
 
 ```shell
     <!-- Multilanguage alternate link tags -->
     {!! Trinityrank\Multilanguage\Frontend\HreflangDisplay::meta_tags($item) !!}
+```
+
+- At the bottom of `app.php` add this part of code and change values according to the website settings
+
+```shell
+    // Url structure scheme (same as multicore tenant config file)
+    'services' => [
+        'deals' => false,
+        'MoneyPage' => [
+            'include_category_in_url' => false,
+            'slug' => 'best',
+        ],
+        'News' => [
+            'include_category_in_url' => false,
+            'slug' => 'news',
+        ],
+        'Blog' => [
+            'include_category_in_url' => false,
+            'slug' => false,
+        ],
+        'ReviewPage' => [
+            'include_category_in_url' => false,
+            'slug' => 'reviews',
+        ]
+    ],
 ```
