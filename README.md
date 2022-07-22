@@ -173,7 +173,7 @@ In your "config\app.php" add multilanguage locales (use ISO language codes). For
 ```
 
 
-### Step 9: Add languages
+### Step 9: Add hreflang metatags
 
 For hreflang metatags add this to yout master.blade file in head tag
 
