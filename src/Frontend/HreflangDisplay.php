@@ -87,17 +87,11 @@ class HreflangDisplay
                         $href .= $item->categories->first()->slug ."/";
                     }
                 }
-                // Templated routes
-                if($item->type == "route") {
-                    if( Request::route()->getName() != "home" ) {
-                        $href .= preg_replace('(.*?\/)', '', Request::path());
-                    }
-                }
 
                 // dump($href);
 
                 //Slug
-                $href .= ($item->slug) ? $item->slug."/" : "/";
+                $href .= rtrim($item->slug, "/") . "/";
 
                 if( $item->multilang_language == $default_locale) {
                     $html .= "<link rel=\"alternate\" hreflang=\"x-default\" href=\"". url($href) ."\" />\n";
