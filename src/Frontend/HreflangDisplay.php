@@ -45,7 +45,7 @@ class HreflangDisplay
         }
 
         // Slug
-        $href .= ($item->slug) ? $item->slug."/" : "/";
+        $href .= rtrim($item->slug, "/") . "/";
 
         return $href;
     }
@@ -76,7 +76,6 @@ class HreflangDisplay
         } else {
             $items = null;
         }
-
 
         if ($items) {
             // Regular hreflangs
